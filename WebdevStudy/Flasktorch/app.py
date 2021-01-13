@@ -49,7 +49,7 @@ def upload():
 def upload_file():
     if request.method =='POST' :
         f = request.files['file']
-        f.save(secure_filename(f.filename))
+        f.save("./images"+secure_filename(f.filename))
         return 'uploads 디렉토리 > 파일 업로드 성공'
     else :
         return "잘못된 접근입니다."
