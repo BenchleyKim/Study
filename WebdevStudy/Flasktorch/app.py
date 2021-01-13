@@ -31,15 +31,23 @@ def get_prediction(image_bytes):
     predicted_idx = str(y_hat.item())
     return imagenet_class_index[predicted_idx]
 
+def get_filename(image):
+    image.save("./images/"+secure_filename(image.filename))
+    filename = image.filename
+    return filename
 
-@app.route('/predict', methods=['POST'])
+
+@app.route('/predict', methods= ['GET', 'POST'])
 def predict():
     if request.method == 'POST':
         file = request.files['file']
         img_bytes = file.read()
         class_id, class_name = get_prediction(image_bytes=img_bytes)
+        file_path = get_filename(file)
+
         print(class_name)
-        return jsonify({'class_id': class_id, 'class_name': class_name})
+        # return jsonify({'class_id': class_id, 'class_name': class_name})
+        return render_template('upload.html', image_file = file_path)
 
 @app.route('/upload')
 def upload():
@@ -49,7 +57,7 @@ def upload():
 def upload_file():
     if request.method =='POST' :
         f = request.files['file']
-        f.save("./images"+secure_filename(f.filename))
+        f.save("./images/"+secure_filename(f.filename))
         return 'uploads 디렉토리 > 파일 업로드 성공'
     else :
         return "잘못된 접근입니다."
