@@ -1,11 +1,11 @@
 import io
 import json
-
+import os
 from torchvision import models
 import torchvision.transforms as transforms
 from PIL import Image
 from flask import Flask, jsonify, request, render_template
-
+from werkzeug import secure_filename
 
 app = Flask(__name__)
 imagenet_class_index = json.load(open('./imagenet_class_index.json'))
