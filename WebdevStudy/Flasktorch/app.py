@@ -1,9 +1,10 @@
+import io
 import json
 
 from torchvision import models
 import torchvision.transforms as transforms
 from PIL import Image
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
 
 app = Flask(__name__)
@@ -38,6 +39,17 @@ def predict():
         img_bytes = file.read()
         class_id, class_name = get_prediction(image_bytes=img_bytes)
         return jsonify({'class_id': class_id, 'class_name': class_name})
+
+@app.route('/upload')
+def upload():
+    return render_template('upload.html')
+
+@app.route('/fileUpload', methods = ['GET', 'POST'])
+def upload_file():
+    if request.method =='POST' :
+        f = request.files['file']
+        f.save(secure_filename(f.filename))
+        return 'uploads 디렉토리 > 파일 업로드 성공'
 
 
 if __name__ == '__main__':
