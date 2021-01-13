@@ -6,10 +6,11 @@
             <input type = "submit"/>
 
         </form>
-        {% if True %}
-        <div>
-        <img src="{{ url_for('images', filename=image_file) }}"
-        </div>
-        {% endif %}
+        
+        
+        <img src={{ url_for('static', filename='img/image.jpg') }}>
+
+
+        
     </body>
 </html>

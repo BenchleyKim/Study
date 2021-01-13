@@ -31,23 +31,15 @@ def get_prediction(image_bytes):
     predicted_idx = str(y_hat.item())
     return imagenet_class_index[predicted_idx]
 
-def get_filename(image):
-    image.save("./images/"+secure_filename(image.filename))
-    filename = image.filename
-    return filename
-
-
 @app.route('/predict', methods= ['GET', 'POST'])
 def predict():
     if request.method == 'POST':
         file = request.files['file']
         img_bytes = file.read()
         class_id, class_name = get_prediction(image_bytes=img_bytes)
-        file_path = get_filename(file)
-
-        print(class_name)
+        file.save("./static/img/image.jpg")
         # return jsonify({'class_id': class_id, 'class_name': class_name})
-        return render_template('upload.html', image_file = file_path)
+        return render_template('upload.html')
 
 @app.route('/upload')
 def upload():
