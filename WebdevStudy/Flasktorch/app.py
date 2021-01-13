@@ -5,7 +5,7 @@ from torchvision import models
 import torchvision.transforms as transforms
 from PIL import Image
 from flask import Flask, jsonify, request, render_template
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 imagenet_class_index = json.load(open('./imagenet_class_index.json'))
@@ -38,6 +38,7 @@ def predict():
         file = request.files['file']
         img_bytes = file.read()
         class_id, class_name = get_prediction(image_bytes=img_bytes)
+        print(class_name)
         return jsonify({'class_id': class_id, 'class_name': class_name})
 
 @app.route('/upload')
@@ -50,7 +51,12 @@ def upload_file():
         f = request.files['file']
         f.save(secure_filename(f.filename))
         return 'uploads 디렉토리 > 파일 업로드 성공'
+    else :
+        return "잘못된 접근입니다."
 
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
 if __name__ == '__main__':
     app.run()
