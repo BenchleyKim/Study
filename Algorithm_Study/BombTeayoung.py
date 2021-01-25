@@ -22,8 +22,6 @@ def bombExplore(x, y):
         for j in range(y_min, y_max+1):
             h[i][j] += 1
 
-
-
 n, m = list(map(int, input().split()))
 m = m//2
 
@@ -31,11 +29,7 @@ h = []
 for i in range(n):
     h.append(list(map(int, input().split())))
 
-bombExplore(5,5)
-
-
 answer = [[0 for x in range(n)] for x in range(n)]
-
 
 for x in range(m,n-m) :
     for y in range(m,n-m):
@@ -43,9 +37,6 @@ for x in range(m,n-m) :
         answer[x][y] = k
         for i in range(k):
             bombExplore(x,y)
-        
-for i in h :
-    print(i)        
 
 for i in answer:
     print(i)
