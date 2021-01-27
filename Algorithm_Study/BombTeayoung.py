@@ -11,6 +11,7 @@
 # 양의 정수 N과 M이 공백을 사이에 두고 주어진다.
 
 # N개의 줄에 걸쳐 H배열의 값이 주어진다. r번째 줄의 c번째 값은 H[r][c]이다.
+
 def bombExplore(x, y):
     X_min, X_max = x - m , x + m 
     y_min, y_max = y - m , y + m
@@ -27,7 +28,7 @@ m = m//2
 
 h = []
 for i in range(n):
-    
+
     h.append(list(map(int, input().split())))
 
 answer = [[0 for x in range(n)] for x in range(n)]
