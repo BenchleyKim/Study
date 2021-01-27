@@ -27,6 +27,7 @@ m = m//2
 
 h = []
 for i in range(n):
+    
     h.append(list(map(int, input().split())))
 
 answer = [[0 for x in range(n)] for x in range(n)]
