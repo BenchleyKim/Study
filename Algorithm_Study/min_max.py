@@ -10,8 +10,7 @@ for i in range(case_num):
     case_list = input().split()
     case_list = [int(j) for j in case_list]
     input_list.append([list_num,case_list])
-# for i in input_list:
-#     print(i)
+
 
 # 가장 큰 수와 가장 작은 수의 차이를 출력한다. 
 def solution(input_list):
@@ -21,7 +20,6 @@ def solution(input_list):
         case_list = i[1]
         for j in range(list_num-1):
             for k in range(list_num-j-1):
-                # print(str(j),str(k))
                 if case_list[k]>case_list[k+1]:
                     temp = case_list[k]
                     case_list[k]=case_list[k+1]
