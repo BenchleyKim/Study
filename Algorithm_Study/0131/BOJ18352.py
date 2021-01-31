@@ -11,11 +11,14 @@ x = 1
 #   else :
 #     roads[a] = [b] 
 
-roads = {1: [2, 3], 2: [3, 4]}
+roads = {1: {2:1,3:1}, 2: [3, 4]}
 
 checkList = {}
 stack = []  
-distances = {}
+distance = {}
+for _ in roads.keys() :
+
+
 
 stack.append(x)
 while True :
