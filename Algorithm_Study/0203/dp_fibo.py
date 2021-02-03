@@ -21,3 +21,4 @@ print(current_time - time.time())
 
 if arr[n] == fibo(n):
   print("right!")
+
