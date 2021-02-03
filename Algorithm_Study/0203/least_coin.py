@@ -5,6 +5,11 @@ INF = 10000000
 d = [INF] * (n+1) 
 coinZip = list(zip(sorted(coin[1:]),sorted(coin[:-1])))
 print(coinZip)
+for c, nc in coinZip :
+  d[c] == 1
+  d[nc] == 1
+  d[]
+  
 for i in range(n) :
   if i > coin[0] :
     for c in coin:
