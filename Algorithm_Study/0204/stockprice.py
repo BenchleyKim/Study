@@ -18,32 +18,20 @@
 prices = [1, 2, 3, 2, 3, 7, 4, 3, 2, 1, 0]
 # answer = [4, 3, 1, 1, 0]
 
-answer = []
-stack = []
-l = len(prices) -1 
-count = 0
-last = prices[0]
-for idx, p in enumerate(prices) :
-  print(idx, p, answer, stack)
-  if p >= last :
-    answer.append(l-idx)
-    stack.append(p)
-    last = p
-  else :
-    answer.append(l-idx)
-    if len(stack) == 0:
-      for i in range(idx) :
-        answer[i] -= l-idx
-      continue
-
-    temp = stack.pop()
-    c = 0 
-    while p < temp : 
-      temp = stack.pop()
-      c += 1
-    for i in range(idx-c, idx) :
-      answer[i] -= l-idx
-    stack.append(p)
-    last = p
+def solution(prices):
+    answer = []
+    stack = []
+    stack.append(prices[0])
+    for idx, p in enumerate(prices) :
+        temp = stack[-1]
+        if p >= temp : 
+            answer.append(len(prices) - idx)
+        else :
+            count = 0
+            while stack :
+                temp = stack.pop()
+                count += 1
+            answer.append(len(prices) - idx - count)
+    return answer
   
-print(answer)
+print(solution(prices))
