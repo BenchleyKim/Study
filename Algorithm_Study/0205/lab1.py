@@ -1,6 +1,6 @@
-import sys
-input = sys.stdin.readline
-#  세그먼트 트리 만들기
+
+
+
 def init(start, end, node):
     if start == end:
         tree[node] = array[start]
@@ -11,8 +11,8 @@ def init(start, end, node):
     return tree[node]
 
 #  구간 합 구하기
-def summit(start, end, node, left, right):
-    # // left 와 right가 범위에서 벗어났기 떄문에 return
+def sumInterval(start, end, node, left, right):
+    # left 와 right가 범위에서 벗어났기 떄문에 return
     if left > end or right < start:
         return 0
     
@@ -20,7 +20,7 @@ def summit(start, end, node, left, right):
         return tree[node]
     
     mid = (start+end) // 2
-    return summit(start, mid, node*2, left, right) + summit(mid + 1, end, node*2+1, left, right)
+    return sumInterval(start, mid, node*2, left, right) + sumInterval(mid + 1, end, node*2+1, left, right)
 
 #  특정 인덱스 값 바꾸기
 def update(start, end, node, index, dif):
@@ -37,24 +37,27 @@ def update(start, end, node, index, dif):
 
 
 
-N, M, K = map(int, input().rstrip().split())
+N, M, K = map(int, input().split())
 
 array = []
 tree = [0] * ((4*N))
 
 for i in range(N):
-    array.append(int(input().rstrip()))
+    array.append(int(input())
 
 init(0, N-1, 1)
+
 print(tree)
 
 for i in range(M+K):
-    cmd = list(map(int, input().rstrip().split()))
+    a,b,c = list(map(int, input()..split()))
 
-    if cmd[0] == 1:
-        cmd[1] -= 1
-        diff = cmd[2] - array[cmd[1]]
-        array[cmd[1]] = cmd[2]
-        update(0, N-1, 1, cmd[1], diff)
-    elif cmd[0] == 2:
-        print(summit(0, N-1, 1, cmd[1]-1, cmd[2]-1))    
+    if a == 1:
+        b -= 1
+        diff = c - array[b]
+        array[b] = c
+        update(0, N-1, 1, b, diff)
+    elif a == 2:
+        print(sumInterval(0, N-1, 1, b-1, c-1)) 
+      
+print(tree)
