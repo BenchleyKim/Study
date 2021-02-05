@@ -8,6 +8,7 @@ for _ in range(n) :
     pointList.append(list(map(int,input().split())))
 pointList.sort()
 print(pointList)
+
 def calDist(a, b):
     return int((a[0] - b[0])**2 + (a[1] - b[1])**2)
 
