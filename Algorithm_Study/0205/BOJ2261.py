@@ -1,12 +1,13 @@
 import math
 import sys
 sys.setrecursionlimit(10**9)
+
 n = int(input())
 pointList = []
 for _ in range(n) :
     pointList.append(list(map(int,input().split())))
 pointList.sort()
-
+print(pointList)
 def calDist(a, b):
     return int((a[0] - b[0])**2 + (a[1] - b[1])**2)
 
@@ -37,6 +38,7 @@ def devideAndConquer(s, e) :
             if check[i][0] > midx and check[j][0] > midx :
                 continue
             d = min(d, calDist(check[i], check[j]))
+    print(d)
     return d            
 s = 0
 e = len(pointList) -1 
