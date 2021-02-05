@@ -1,63 +1,57 @@
 
 
-
-def init(start, end, node):
+def init(start, end, r):
     if start == end:
-        tree[node] = array[start]
-        return tree[node]
+        tree[r] = array[start]
+        return tree[r]
     
     mid = (start + end) // 2
-    tree[node] = init(start, mid, node * 2) + init(mid + 1, end, node * 2 + 1)
-    return tree[node]
+    tree[r] = init(start, mid, r * 2) + init(mid + 1, end, r * 2 + 1)
+    return tree[r]
 
-#  구간 합 구하기
-def sumInterval(start, end, node, left, right):
-    # left 와 right가 범위에서 벗어났기 떄문에 return
+def sumInterval(start, end, r, left, right):
     if left > end or right < start:
         return 0
     
     if left <= start and end <= right:
-        return tree[node]
+        return tree[r]
     
     mid = (start+end) // 2
-    return sumInterval(start, mid, node*2, left, right) + sumInterval(mid + 1, end, node*2+1, left, right)
+    return sumInterval(start, mid, r*2, left, right) + sumInterval(mid + 1, end, r*2+1, left, right)
 
-#  특정 인덱스 값 바꾸기
-def update(start, end, node, index, dif):
+def update(start, end, r, index, dif):
     if index < start or index > end:
         return 
     
-    tree[node] += dif
+    tree[r] += dif
     if start == end:
         return
     
     mid = (start+end) // 2
-    update(start, mid, node*2, index, dif)
-    update(mid+1, end, node*2+1, index, dif)
+    update(start, mid, r*2, index, dif)
+    update(mid+1, end, r*2+1, index, dif)
 
 
 
-N, M, K = map(int, input().split())
-
-array = []
-tree = [0] * ((4*N))
-
-for i in range(N):
-    array.append(int(input())
-
+N = int(input())
+array = list(map(int, input().split()))
+tree = [0] * (2 * N)
+K = int(input())
 init(0, N-1, 1)
+result = []
+for i in range(K):
+    a,b,c =  input().split()
+    b = int(b)
+    c = int(c)
 
-print(tree)
-
-for i in range(M+K):
-    a,b,c = list(map(int, input()..split()))
-
-    if a == 1:
+    if a == 'u':
         b -= 1
         diff = c - array[b]
         array[b] = c
         update(0, N-1, 1, b, diff)
-    elif a == 2:
-        print(sumInterval(0, N-1, 1, b-1, c-1)) 
+    elif a == 's':
+        result.append(sumInterval(0, N-1, 1, b-1, c-1))
+
+for t in result :
+    print(t)
       
-print(tree)
