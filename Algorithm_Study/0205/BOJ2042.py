@@ -3,6 +3,8 @@ arr = []
 for _ in range(N) :
     arr.append(int(input()))
 
+tree = []
+
 for _ in range(M+K) :
     a ,b ,c = list(map(int, input().split()))
     if a == 1 :
