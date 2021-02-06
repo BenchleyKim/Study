@@ -1,8 +1,4 @@
 # arr = [1,2,5,6,2,4,3,7]
-
-    
-
-
 N , M , K = map(int, input().split())
 arr = []
 for _ in range(N) :
