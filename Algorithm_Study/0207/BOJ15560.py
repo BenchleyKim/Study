@@ -32,9 +32,10 @@ result = []
 for i in range(Q) :
     C , A ,B = map(int, input().split())
     if C == 0 :
-        result.append(sum(K[A-1:B])*U+(B-A)*V)
+        r = sum(K[A-1:B]) * U + (B-A) * V
+        result.append(r)
     if C == 1 :
         K[A-1] = B
-
+print(K)
 for r in result :
     print(r)
