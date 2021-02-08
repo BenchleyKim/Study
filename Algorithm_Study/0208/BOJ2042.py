@@ -34,40 +34,40 @@ def init(start, end, r) :
 def sumInterval(start, end, r, left ,right) :
     if left > end or right < start :
         return 0
-    if left >= start and right <= end :
+    if left <= start and end <= right :
         return tree[r]
     mid = (start + end) // 2
-    return sumInterval(start, mid, r*2 , left, right) + sumInterval(mid+1, end, r*2+1, left, right)
+    resum = sumInterval(start, mid, r*2 , left, right) + sumInterval(mid+1, end, r*2+1, left, right)
+    return resum
 
 def update(start, end, r, idx, diff) :
     if idx > end or idx < start :
         return 
     tree[r] += diff
-    if start == diff :
+    if start == end :
         return
     mid = (start+end) // 2
     update(start, mid , r*2, idx, diff) 
     update(mid+1, end, r*2+1, idx, diff)
 
 N , M , K = map(int,input().split())
-tree = [0] * 2 * N
+tree = [0] * 3000000
 arr = []
 for _ in range(N) :
     arr.append(int(input()))
 
-print(arr)
+# print(arr)
 init(0, N-1, 1)
-print(tree)
+# print(tree)
 for _ in range(M+K):
     a, b, c = map(int,input().split())
     if a == 1 : 
         # b번째 수를 c로 바꾸고 
-        diff = arr[b-1] - c
-        update(0,N-1, 1, b-1, diff)
+        diff = c - arr[b-1] 
         arr[b-1] = c
-        print(arr)
+        update(0,N-1, 1, b-1, diff)
+        # print(arr)
     if a == 2 :
         # b번째 수부터 c번쨰 수까지의 합을 구하여 출력
-
-        sum = sumInterval(0, N-1, 1, b, c)
+        sum = sumInterval(0, N-1, 1, b-1, c-1)
         print(sum)
