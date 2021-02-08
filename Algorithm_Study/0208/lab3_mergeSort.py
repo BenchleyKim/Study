@@ -1,21 +1,29 @@
-N = int(input())
+import collections
 
-arr = list(map(int, input().split()))
+N = int(input())
+arr = []
+for _ in range(N) : 
+    arr.append(int(input()))
+
+#  arr = list(map(int, input().split()))
 
 def merge(left, right) : 
+    i = 0 
+    j = 0
     result = []
-    while len(left) > 0 or len(right) > 0 :
-        
-        if len(left) > 0 and len(right) > 0 :
-            if left[0] <= right[0] :
-                result.append(left.pop(0))
+    while len(left) > i or len(right) > j :
+        if len(left) > i and len(right) > j :
+            if left[i] <= right[j] :
+                result.append(left[i])
+                i += 1
             else : 
-                result.append(right.pop(0))
+                result.append(right[j])
+                j += 1
             continue
-        if len(left) > 0 :
+        if len(left) > i :
             result.extend(left)
             break
-        if len(right) > 0 : 
+        if len(right) > j : 
             result.extend(right)
             break
     # print(result)    
