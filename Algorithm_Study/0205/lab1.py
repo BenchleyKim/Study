@@ -39,6 +39,7 @@ tree = [0] * (2 * N)
 K = int(input())
 init(0, N-1, 1)
 result = []
+print(tree)
 for i in range(K):
     a,b,c =  input().split()
     b = int(b)
