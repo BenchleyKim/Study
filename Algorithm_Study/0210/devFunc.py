@@ -4,7 +4,7 @@ speeds = [1, 1, 1, 1, 1, 1]
 def solution(progresses, speeds):
     answer = []
     while len(progresses) > 0 :
-          print(progresses)
+          # print(progresses)
           count = 0
           while progresses[0] >= 100 :
               count += 1
