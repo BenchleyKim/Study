@@ -13,6 +13,8 @@ def solution(scoville, K):
         f = heap.get()
         if f >= K : 
             return answer
+        if heap.qsize() <= 1: 
+            return -1
         s = heap.get()
         l = f+s*2
         answer += 1
