@@ -5,10 +5,10 @@ cards = list(map(int, input().split()))
 result = 0
 min = cards[1] + cards[2] + cards[0]
 for i in range(N) :
-  for j in range(N-1):
-    for k in range(N-2) :
+  for j in range(i+1,N):
+    for k in range(j+1,N) :
       sum = cards[i] + cards[j] + cards[k]
-      if sum < M :  
+      if sum <= M :  
         diff = M-sum
         if diff < min : 
           min = diff
