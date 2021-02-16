@@ -6,7 +6,7 @@ T = list(map(int, input().split()))
 result = 0
 def binarySearch(left, right) :
   global result
-  print(left, right)
+  # print(left, right)
   if left == right :
     result = left
     return
