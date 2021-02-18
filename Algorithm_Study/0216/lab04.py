@@ -1,8 +1,8 @@
 import sys 
-sys.stdin = open("./Algorithm_Study/0216/lab04", "r")
+# sys.stdin = open("./Algorithm_Study/0216/lab04", "r")
 
-N , M = map(int, input().split())
-T = list(map(int, input().split()))
+N , M = map(int, sys.stdin.readline().split())
+T = [int(sys.stdin.readline()) for _ in range(N)]
 result = 0
 
 def binarySearch(left, right) :
