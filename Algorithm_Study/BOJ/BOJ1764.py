@@ -10,5 +10,10 @@ B = {}
 for j in range(M) :
   S = input()
   if S in A.keys() :
-    
+    B[S] = 1
+R = sorted(B.keys())
+print(len(R))
+for i in R :
+  print(i)
+
 
