@@ -33,5 +33,6 @@ for i in range(1,N+1) :
     DP[i-1] = flag_value
   sum += mn 
   DP[i] = tmp
+  print("i : ",i, " MIN : ", mn," DP : ", DP)
 print(sum)
 
