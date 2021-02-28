@@ -4,21 +4,17 @@ sys.stdin = open("./Algorithm_Study/BOJ/BOJ9251", "r")
 STR1 = input()
 STR2 = input()
 
-arr = [[0] * len(STR1) for _ in range(len(STR2))]
-mx = 0
-for i in range(len(STR1)) :
-  for j in range(len(STR2)) :
-    if i == 0 :
-      if STR1[i] == STR2[j] :
-        arr[j:][i] =  1
-        break
-    else :
-      if STR1[i] == STR2[j] :
-        for k in range(j,len(STR2)) :
-          arr[k][i] = arr[k][i-1] + 1
-        break
-      arr[j][i] = arr[j][i-1]
-    
+arr = [[0] * (len(STR2)+1) for _ in range(len(STR1)+1)]
 
-mx = 0 
-print(max(arr[-1]))
+mx = 0
+for i in range(1, len(STR1)+1) :
+  for j in range(1,len(STR2)+1) :
+    if STR1[i-1] == STR2[j-1] :
+      arr[i][j] = arr[i-1][j-1] + 1
+      mx = max(mx, arr[i][j])
+    else :
+      if arr[i-1][j] < arr[i][j-1] :
+        arr[i][j] = arr[i][j-1] 
+        continue
+      arr[i][j] = arr[i-1][j]
+print(mx)
