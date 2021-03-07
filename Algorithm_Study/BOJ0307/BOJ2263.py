@@ -8,3 +8,6 @@ left = []
 right = []
 
 for i in range(N) :
+  for j in range(N) :
+    if POSTORDER[i] == INORDER[j] :
+      
