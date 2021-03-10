@@ -1,30 +1,29 @@
 import sys 
-sys.stdin = open("./Algorithm_Study/0219/lab04", "r")
-S = input()
-calPrior = {'(' : 1, ')':1, '*':3, '/':3, '+':2, '-':2}
-num = []
-stack  = []
-newS = ''
-for i in range(len(S)) :
-  if S[i] == '(' :
-    stack.append(S[i])
-    continue
-  if S[i] == ')':
-    while stack[-1] != '(' :
-      newS += stack.pop()
-    stack.pop()
-    continue
-  if S[i] not in '()+-*/':
-    newS += S[i]
-    continue
-  if len(stack) and calPrior[S[i]] <= calPrior[stack[-1]] :
-    newS += stack.pop()
-    stack.append(S[i])
-    continue
-  else :
-    stack.append(S[i])
-while len(stack) != 0 :
-  newS += stack.pop()
-print(newS)
+sys.stdin = open("./Algorithm_Study/2020WINTER/0219/lab04", "r")
+a = input()
+stack = [] #스택
+res='' #출력
 
-    
+for x in a:
+    if x.isalpha(): #피연산자인지 아닌지 확인
+        res+=x
+    else:
+        if x == '(':
+            stack.append(x)
+        elif x == '*' or x =='/':
+            while stack and (stack[-1]=='*' or stack[-1]=='/'):
+                res+=stack.pop()
+            stack.append(x)
+        elif x == '+' or x == '-':
+            while stack and stack[-1] != '(':
+                res += stack.pop()
+            stack.append(x)
+        elif x == ')':
+            while stack and stack[-1] != '(':
+                res+=stack.pop()
+            stack.pop()
+
+#스택안에 남아있는 값들 pop            
+while stack:
+    res += stack.pop()
+print(res)
