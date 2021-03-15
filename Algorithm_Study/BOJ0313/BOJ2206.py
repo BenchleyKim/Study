@@ -1,35 +1,37 @@
 import sys
+from collections import deque
+
 sys.stdin = open("./Algorithm_Study/BOJ0313/BOJ2206", "r")
 
-N , M = map(int , sys.stdin.readline().split())
-MAP = [[0]*M for _ in range(N)]
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
 
-for i in range(N) :
-  line = sys.stdin.readline()
-  for j in range(M) :
-    MAP[i][j] = int(line[j])
+def bfs():
+    q.append([0, 0, 0])
+    c[0][0][0] = 1
+    while q:
+        x, y, z = q.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < n and 0 <= ny < m:
+                if a[nx][ny] == 0 and c[nx][ny][z] == -1:
+                    c[nx][ny][z] = c[x][y][z] + 1
+                    q.append([nx, ny, z])
+                elif z == 0 and a[nx][ny] == 1 and c[nx][ny][z+1] == -1:
+                    c[nx][ny][z+1] = c[x][y][z] + 1
+                    q.append([nx, ny, z+1])
 
-print(MAP)
-check = [[0]*M for _ in range(N)]
-dx = [0,0,1,-1]
-dy = [1,-1,0,0]
-queue = [(0,0,0)]
-while queue : 
-  X,Y,W = queue.pop(0)
-  if X == N-1 and Y == M-1 :
-    print(W+1)
-    break
-  if check[X][Y]:
-    continue
-  print(X,Y)
-  check[X][Y] = W+1
-  for i in range(4) :
-    if X+dx[i] < 0 or X+dx[i] > N-1 or Y+dy[i] < 0 or Y+dy[i] > M-1 :
-      continue
-    if MAP[X+dx[i]][Y+dx[i]] == 1 :
-      continue
-    queue.append([X+dx[i],Y+dy[i],check[X][Y]])
+n, m = map(int, input().split())
+a = [list(map(int, input())) for _ in range(n)]
+c = [[[-1]*2 for _ in range(m)] for _ in range(n)]
+q = deque()
 
-
-
-
+bfs()
+ans1, ans2 = c[n-1][m-1][0], c[n-1][m-1][1]
+if ans1 == -1 and ans2 != -1:
+    print(ans2)
+elif ans1 != -1 and ans2 == -1:
+    print(ans1)
+else:
+    print(min(ans1, ans2))
