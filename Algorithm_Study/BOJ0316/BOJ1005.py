@@ -12,17 +12,23 @@ for _ in range(T) :
     graph[X].append(Y)
     check[Y] += 1
   stack = []
+  result = { i+1 : 0 for i in range(N)}
   for i in check.keys() :
     if check[i] == 0 :
       stack.append(i)
-  print(stack)
-  print(graph)
+      result[i] = arr[i-1]
+
   while stack :
     tmp = stack.pop()
     for k in graph[tmp] :
       check[k] -= 1
-    
-  print(check)
+      if result[k] != 0:
+        result[k] = max(result[k], result[tmp] + arr[k-1])
+      else :
+        result[k] = result[tmp] + arr[k-1]
+      if check[k] == 0 :
+        stack.append(k)
   target = int(sys.stdin.readline())
+  print(result[target])
 
 
