@@ -19,6 +19,8 @@ for _ in range(T) :
   print(graph)
   while stack :
     tmp = stack.pop()
+    for k in graph[tmp] :
+      check[k] -= 1
     
   print(check)
   target = int(sys.stdin.readline())
