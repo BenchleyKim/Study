@@ -1,51 +1,38 @@
 import sys
+import heapq 
 sys.stdin = open("./Algorithm_Study/BOJ0322/BOJ2239", "r")
 sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
-table = []
-for _ in range(9) :
-  line = list(map(int, list(input().rstrip())))
-  table.append(line)
-  print(line)
 
-def backtracking(board) :
-  # for b in board :
-  #   print(b)
-  checkcol = {i:[] for i in range(9)}
-  checkrow = {i:[] for i in range(9)}
-  checkblock = {i:[] for i in range(9)}
-  searchList = []
-  flag = 0
-  for i in range(3) :
-    for j in range(3) :
-      for r in range(3) :
-        for l in range(3) :
-          x, y, b = 3*i+r, 3*j+l, 3*i + j
-          if board[x][y] == 0 :
-            searchList.append([x,y,b])
-            flag = 1
-            continue
-          checkcol[x].append(board[x][y])
-          checkrow[y].append(board[x][y])
-          checkblock[b].append(board[x][y])
-  if not flag :
-    for i in range(9) :
-      for j in range(9) :
-        print(board[i][j],end="")
-      print()
-    print()
-  # print(searchList)
-  # print(checkcol)
-  # print(checkrow)
-  # print(checkblock)
-  for s in searchList :
-    x,y,b = s
-    for i in range(1,10) :
-      if (i in checkcol[x]) or (i in checkrow[y]) or (i in checkblock[b]) :
-        continue
-      board[x][y] = i
-      print(x,y,i)
-      backtracking(board)
+def cal(x, y):
+    return (x//3)*3 + (y//3)
 
+def sol(n):
+    if n == 81:
+        for i in B:
+            print(''.join(map(str, i)))
+        return True
+    x = n // 9
+    y = n % 9
+    if B[x][y]: return sol(n+1)
+    else:
+        for i in range(1, 10):
+            if not c1[x][i] and not c2[y][i] and not c3[cal(x,y)][i]:
+                c1[x][i] = c2[y][i] = c3[cal(x,y)][i] = True
+                B[x][y] = i
+                if sol(n+1): return True
+                c1[x][i] = c2[y][i] = c3[cal(x,y)][i] = False
+                B[x][y] = 0
+    return False
 
-backtracking(table)
+B = [list(map(int, input().rstrip())) for _ in range(9)]
+c1 = [[False]*10 for _ in range(9)] #행
+c2 = [[False]*10 for _ in range(9)] #열
+c3 = [[False]*10 for _ in range(9)] #사각형
+for i in range(9):
+    for j in range(9):
+        if B[i][j]:
+            c1[i][B[i][j]] = True
+            c2[j][B[i][j]] = True
+            c3[cal(i, j)][B[i][j]] = True
+sol(0)
