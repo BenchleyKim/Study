@@ -45,8 +45,8 @@ def robot(R,C,D, action,count) :
     return
 cnt = 1
 robot(R,C,D,1,0)
-# for line in check:
-#   print(line)
+for line in check:
+  print(line)
 print(cnt-1)
 
 
