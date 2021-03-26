@@ -1,4 +1,5 @@
 import sys
+import copy
 sys.stdin = open("./Algorithm_Study/BOJ0326/BOJ13460", "r")
 input = sys.stdin.readline
 N, M =  map(int, input().split())
@@ -23,25 +24,24 @@ for i in range(N) :
       board[i][j] = '.'
     if col == 'O' :
       O = [i, j]
-print(R,B,O)
 queue = [[R,B,0]]
 endflag = False
-for line in board :
-  print(line)
+
+
 while queue :
-  tR, tB ,count = queue.pop()
+  tR, tB ,count = queue.pop(0)
+  # print(tR,tB,count)
   if endflag :
     print(count)
     break
   if count > 10 :
     print(-1) 
     break
-  print(tR,tB)
-  flag = False
   endflag = False
   for action in actions :
-    nR = tR
-    nB = tB
+    nR = [tR[0], tR[1]]
+    nB = [tB[0], tB[1]]
+    flag  = False
     if board[nR[0] + dx[action]][nR[1] + dy[action]] == '#' and board[nB[0] + dx[action]][nB[1] + dy[action]] == '#' :
       continue
     # R의 막다른 곳 찾기
@@ -51,21 +51,21 @@ while queue :
         flag = True      
       if board[nR[0]][nR[1]] == 'O' :
         endflag = True
-        break
+        
       nR = [nR[0] + dx[action], nR[1] + dy[action]]
     if flag or board[nR[0]][nR[1]] == '#' :
       nR = [nR[0] - dx[action], nR[1] - dy[action]]
     flag = False
     while board[nB[0] + dx[action]][nB[1] + dy[action]] == '.' or board[nB[0] + dx[action]][nB[1] + dy[action]] == 'O' :
       if nB[0] == tR[0] and nB[1] == tR[1] :
-      # 진행방향쪽에 B가 있는 경우 
+      # 진행방향쪽에 R이 있는 경우 
         flag = True      
       if board[nB[0]][nB[1]] == 'O' :
         endflag = False
-        break
+        
       nB = [nB[0] + dx[action], nB[1] + dy[action]]
     if endflag :
-      break
+      continue
     if flag or  board[nB[0]][nB[1]] == '#' : 
       nB = [nB[0] - dx[action], nB[1] - dy[action]]
     queue.append([nR,nB,count+1])
