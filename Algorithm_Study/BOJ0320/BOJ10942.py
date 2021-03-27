@@ -1,7 +1,7 @@
 import sys
 sys.stdin = open("./Algorithm_Study/BOJ0320/BOJ10942", "r")
 input = sys.stdin.readline
-
+N = int(sys.stdin.readline())
 N = int(input())
 arr = list(map(int,input().split()))
 DP = [[0] * N for _ in range(N)]

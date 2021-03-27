@@ -1,7 +1,6 @@
 import sys
 import heapq 
 import collections
-sys.stdin = open("./Algorithm_Study/BOJ0320/BOJ2056", "r")
 input = sys.stdin.readline
 N = int(input())
 graph = {i : {'w' : 0, 'num' : 0, 'nodes' : []} for i in range(1,N+1)}
