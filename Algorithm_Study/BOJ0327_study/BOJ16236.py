@@ -28,14 +28,20 @@ while True :
     for substate in range(1, min(shark_state,7)) :
         eatible_fish.extend(fish[substate])
     if eatible_fish :
-        near_fish = 0
-        mn = int((20**2 + 20**2))
+        near_fish = []
+        mn = 2*N
         # 먹을 수 있는 물고기의 동일 조건 처리 구현 ~ 
         for substate in range(1,min(shark_state,7)) : 
             for fish_idx, afish in enumerate(fish[substate]) :
-                if (cSx - afish[0])**2 + (cSy-afish[1]) **2 < mn :
-                    mn = (cSx - afish[0])**2 + (cSy-afish[1]) **2
+                if abs(cSx - afish[0])+ abs(cSy-afish[1]) < mn :
+                    mn = abs(cSx - afish[0])+ abs(cSy-afish[1])
                     near_fish = [fish_idx, substate]
+                elif mn == abs(cSx - afish[0])+ abs(cSy-afish[1]) **2 :
+                    if afish[0] < fish[near_fish[1]][near_fish[0]][0] :
+                        near_fish = [fish_idx,substate]
+                    elif afish[0] == fish[near_fish[1]][near_fish[0]][0] :
+                        if afish[1] < fish[near_fish[1]][near_fish[0]][1] :
+                            near_fish = [fish_idx,substate]
         # 아기 상어 위치 이동
 
         fish_list = fish[near_fish[1]]
