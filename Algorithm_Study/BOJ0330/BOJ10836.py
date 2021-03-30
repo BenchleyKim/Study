@@ -3,38 +3,37 @@ sys.stdin = open("./Algorithm_Study/BOJ0330/BOJ10836", "r")
 input = sys.stdin.readline
 
 M , N = map(int, input().split())
-ans_board = [[1]*M for _ in range(M)]
+board = [[1]*M for _ in range(M)]
 days = []
-for _ in range(N) :
-  board = [[0]*M for _ in range(M)]
-  first_growth = list(map(int, input().split()))
-  cnt = 0
-  for i in range(3) :
-    for j in range(first_growth[i]) :
-      cnt += 1
-      if cnt > M :
-        board[0][cnt-M] += i
-        continue
-      board[M-cnt][0] += i
-  for i in range(M-1,0,-1) :
-    itr = 2*i -1 
-    for j in range(itr) :
-      if j >= i :
-        # 오른쪽으로 
-        board[M-i][M-i+j-i+1] = max(board[M-i-1][M-i+j-i+1],board[M-i][M-i+j-i-1+1],board[M-i-1][M-i+j-i-1+1])
-        continue
-      board[M-i+j][M-i] = max(board[M-i+j-1][M-i], board[M-i+j][M-i-1], board[M-i+j-1][M-i-1])
-# i = 3 일 때 board[1+j][1] += (j는 0~4)
-# i = 2 일 때 board[2+j][2] += (j는 0~2)
-  # print(" 증가 값 보드")
-  # for b in board :
-  #   print(b)
+assumption_list = [0] * (2*M-1)
+for _ in range(N) :  
+  zero, one , two = map(int, input().split())
+  for i in range(zero,one+zero) :
+    assumption_list[i] += 1
+  for i in range(one+zero, 2*M-1) :
+    assumption_list[i] += 2
+
+for i in range(M) :
+  board[i][0] += assumption_list[M-1-i]
+for i in range(1,M) :
+  board[0][i] += assumption_list[M+i-1]
+
+for i in range(1,M) :
+  board[i][i] = max(board[i-1][i],board[i][i-1],board[i-1][i-1])
+  for j in range(i+1,M) :
+    board[j][i] = max(board[j-1][i],board[j][i-1],board[j-1][i-1])
+    board[i][j] = max(board[i-1][j], board[i][j-1],board[i-1][j-1])
   
-  for i in range(M) :
-    for j in range(M) :
-      ans_board[i][j] += board[i][j]
-for line in ans_board :
+for line in board :
   for ele in line :
     print(ele, end=' ')
   print(end='\n')
 
+# 0 1 2 
+# 1 1 1
+# 2 2 2 
+# 3 4 5 
+
+# 0 0 1 1 1 2 2
+# 1 1 1 1 1 1 2
+# 1 1 2 2 2 3 4
