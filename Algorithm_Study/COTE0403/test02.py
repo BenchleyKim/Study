@@ -1,9 +1,7 @@
 from itertools import combinations
 def solution(needs, r) :
   comb_list = [ i for i in range(len(needs[0]))]
-  print(comb_list)
   cases = list(combinations(comb_list,r))
-  print(list(cases))
   mx = 0
   for case in cases :
     cnt = 0
