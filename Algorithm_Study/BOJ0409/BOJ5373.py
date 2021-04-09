@@ -51,6 +51,16 @@ def u_rotation() :
     for i in range(3) :
         LEFTSIDE[i][2], tmp[2-i] = tmp[2-i], LEFTSIDE[i][2]
     BACKSIDE.append(tmp)
+def u_rotation() : 
+    rotation(UPSIDE)
+    tmp = BACKSIDE.pop()
+    for i in range(3) :
+        RIGHTSIDE[i][0], tmp[i] = tmp[i], RIGHTSIDE[i][0]
+    for i in range(3) :
+        FRONTSIDE[0][2-i], tmp[i] = tmp[i], FRONTSIDE[0][2-i]
+    for i in range(3) :
+        LEFTSIDE[i][2], tmp[2-i] = tmp[2-i], LEFTSIDE[i][2]
+    BACKSIDE.append(tmp)
     
 UPSIDE = [['w','w','w'],['w','w','w'],['w','w','w']]
 DOWNSIDE = [['y','y','y'],['y','y','y'],['y','y','y']]
