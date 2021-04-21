@@ -17,5 +17,27 @@ for i in range(len(S)) :
 
         check[i] = 1
 
+mid = int(len(S)//2)
+# if (len(S)%2) == 1 :
+#     mid = len(S) // 2
 print(dstS)
-print(check)
+print(mid)
+for i in range(mid, len(S)) :
+    if  (i % 2) == 0 :
+        flag = True
+        print(dstS[i])
+        for j in range(1,len(S)-i) :
+            print(dstS[i+j], dstS[i-j])
+            if dstS[i+j] == match[dstS[i-j]] :
+                pass
+            else :
+                flag = False
+                break
+        if flag :
+            print(dstS[:i])
+    else :
+        flag = True 
+        for j in range(0,len(S)-i) :
+            
+            
+
