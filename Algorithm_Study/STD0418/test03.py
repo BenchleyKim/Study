@@ -20,101 +20,119 @@ board = [ ]
 for i in range(N) :
     board.append(list(map(int, input().split())))
 
-for b in board : 
-    print(b)
 sx, sy = map(int, input().split())
-passegers = {}
-for i in range(M) :
-    px,py, dx,dy = list(map(int, input().split()))
-    board[px-1][py-1], board[dx-1][dy-1] = 2,3 
-    if passegers.get(px-1) :
-        passegers[px-1][py-1] = [dx-1,dy-1]
-    else :
-        passegers[px-1] = {}
-        passegers[px-1][py-1] = [dx-1,dy-1]
 
-print(passegers)
+passegers = [0] * (M+2)
+
+for i in range(2,M+2) :
+    px,py, dx,dy = list(map(int, input().split()))
+    board[px-1][py-1], board[dx-1][dy-1] = i,-i 
+    passegers[i] = px-1,py-1,dx-1,dy-1
+    
+
+# print(passegers)
 
 dx = [1,-1,0,0]
 dy = [0,0,1,-1]
-
 queue = [(sx-1,sy-1)]
-check = [[0] * N for _ in range(N) ]
-nxQueue = []
-cnt = 0
+for b in board :
+    print(b)
 
-for i in range(M):
-    if F < 0 :
-        break
-    flag = True 
-    dist = 0
+checkFlag = True
+
+for i in range(M) :
+    check = [[0]* N for _ in range(N)]
     near = []
-    check = [[0] * N for _ in range(N) ]    
-    while flag :        
-        dist += 1
-        nextQueue = []
-        for q in queue :
-            cx, cy = q 
-            if check[cx][cy] :
-                continue
-            check[cx][cy] = 1 
-            for d in range(4) :
-                nx, ny = cx+dx[d] , cy + dy[d]
-                if 0<= nx < N and 0<= ny < N :
-                    if board[nx][ny] == 1 :
-                        continue
-                    if board[nx][ny] == 3 :
-                        continue
-                    if board[nx][ny] == 2 :
-                        flag = False
-                        near.append((nx,ny))
-                        continue
-                    else :
-                        nxQueue.append((nx,ny))
-        if flag :
-            queue = nxQueue
-        else :
-            near.sort()
-    F -= dist
-    px,py = near[0]
-    dstx,dsty = passegers[px][py] 
-    dist = 0 
-    flag  = True
-    check = [[0] * N for _ in range(N) ]   
+    flag = True
+    dist = 0
+    print(queue,F)
     while flag :
-        dist += 1
-        nextQueue = []
+        nq = []
+        if len(queue) == 0 : 
+            checkFlag = False
+            break
         for q in queue :
-            cx, cy = q 
+            cx,cy = q 
             if check[cx][cy] :
                 continue
-            if cx == dstx and cy== dsty :
-                cnt += 1
+            check[cx][cy] = 1
+            if board[cx][cy] > 0 :
+                near.append((cx,cy))
+                flag = False
+                continue
+            for d in range(4) :
+                nx, ny = cx+dx[d], cy+dy[d] 
+                if 0<= nx < N and 0<= ny<N  :
+                    if board[nx][ny] != 1 :
+                        nq.append((nx,ny))
+        if flag :
+            dist += 1
+            queue = nq[:]
+    if F < dist :
+        F -= dist
+        break
+    F -= dist
+    near.sort()
+    sx,sy = near[0]
+    dst = board[sx][sy]
+    board[sx][sy] = 0
+    queue = [(sx,sy)]
+
+    check = [[0]* N for _ in range(N)]
+    tmp = 0
+    flag = True
+    dist = 0
+    checkFlag = True
+    # print(queue)
+    while flag :
+        nq = []
+        if len(queue) == 0 :
+            checkFlag = False
+            break
+
+        
+        for q in queue :
+            cx,cy = q 
+            if check[cx][cy] :
+                continue
+            check[cx][cy] = 1
+            if board[cx][cy] == -dst:
+                tmp = (cx,cy)
                 flag = False
                 break
-            check[cx][cy] = 1 
             for d in range(4) :
-                nx, ny = cx+dx[d] , cy + dy[d]
-                if 0<= nx < N and 0<= ny < N :
-                    if board[nx][ny] == 1 :
-                        continue
-                    if board[nx][ny] == 3 :
-                        continue
-                    if board[nx][ny] == 2 :
-                        continue
-                    nxQueue.append((nx,ny))
+                nx, ny = cx+dx[d], cy+dy[d] 
+                if 0<= nx < N and 0<= ny< N  :
+                    if board[nx][ny] != 1 :
+                        nq.append((nx,ny))
         if flag :
-            queue = nxQueue
-    F += dist 
-
+            dist += 1
+            queue = nq[:]
+    if F < dist :
+        F -= dist
+        break
+    F += dist
+    cx, cy=  tmp
+    queue = [tmp]
+    board[cx][cy] = 0
+    if checkFlag == False :
+        break
 
 if F < 0 :
     print(-1)
 else :
-    if cnt != M :
-        print(-1)
-    else :
+    if checkFlag :
         print(F)
+    else :
+        print(-1)
+
+
+
+
+
+        
+
+
 
 
 
