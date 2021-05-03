@@ -10,8 +10,19 @@ for i in range(N) :
 dx = [1,-1,0,0]
 dy = [0,0,1,-1]
 cnt = 0
-for b in board :
-    print(b)
+stack = [(0,0)]
+check = [[0]*M for _ in range(N)]
+while stack :
+    x, y = stack.pop()
+    if check[x][y] :
+        continue
+    check[x][y] = 1
+    board[x][y] = 2
+    for d in range(4) :
+        nx, ny = x+dx[d], y+dy[d]
+        if 0<= nx < N and 0<= ny < M :
+            if board[nx][ny] == 0 :
+                stack.append((nx,ny))
 while True :
     flag = True
     nboard = [[0]*M for _ in range(N)]
@@ -28,6 +39,9 @@ while True :
                     nboard[i][j] = 1 
                 else :
                     nboard[i][j] = 0
+    if flag :
+        print(cnt)
+        break
     stack = [(0,0)]
     check = [[0]*M for _ in range(N)]
     while stack :
@@ -35,16 +49,12 @@ while True :
         if check[x][y] :
             continue
         check[x][y] = 1
-        board[x][y] = 2
+        nboard[x][y] = 2
         for d in range(4) :
             nx, ny = x+dx[d], y+dy[d]
             if 0<= nx < N and 0<= ny < M :
-                if board[nx][ny] == 0 :
+                if nboard[nx][ny] == 0 :
                     stack.append((nx,ny))
-
-    if flag :
-        print(cnt)
-        break
     cnt += 1
     board = nboard
 
