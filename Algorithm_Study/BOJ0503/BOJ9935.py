@@ -1,17 +1,28 @@
-import sys 
-import re
+import sys
+from collections import deque
+
 sys.stdin = open(".\Algorithm_Study\BOJ0503\BOJ9935","r")
 input = sys.stdin.readline
 
-base = input().rstrip()
-bomb = input().rstrip()
-flag = re.search(bomb, base)
+S = list(input().rstrip())
+bomb = list(input().rstrip())
 
-while flag :
-    result = re.sub(bomb,'',base)
-    base = result
-    flag = re.search(bomb, base)
-if len(base) == 0 :
-    print('FRULA')
-else :
-    print(base)
+temp = deque()
+
+for s in S:
+    temp.append(s)
+
+    if len(temp) >= len(bomb):
+        check = True
+
+        for i in range(len(bomb)):
+            if temp[len(temp)-len(bomb)+i] != bomb[i]:
+                check = False
+
+        if check == True:
+            for _ in range(len(bomb)):
+                temp.pop()
+if temp:
+    print(("").join(temp))
+else:
+    print("FRULA")
