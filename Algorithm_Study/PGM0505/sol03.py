@@ -1,3 +1,5 @@
+
+
 def solution(gems):
     cat = {}
     l = 0
