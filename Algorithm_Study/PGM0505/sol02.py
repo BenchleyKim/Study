@@ -1,0 +1,5 @@
+from itertools import permutations
+
+def solution(expression):
+    answer = 0
+    return answer
