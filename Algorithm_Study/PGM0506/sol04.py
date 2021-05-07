@@ -1,12 +1,8 @@
 
-import bisect 
-
-import heapq
-from collections import deque
 def solution(stones, k):
     answer = 0
     left = 0 
-    right = 200000
+    right = 200000000
     while left <= right :
         mid = (left+right)//2
         cnt = 0 
