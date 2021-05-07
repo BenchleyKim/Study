@@ -21,13 +21,9 @@ def solution(expression):
                 stack.append(e)
                 continue
             num += e
-        
         postfix.append(int(num))
         while stack :
             postfix.append(stack.pop())
-        print(prior)
-        print(postfix)
-        
         stack = []
         for p in postfix :
             if p in cal :
@@ -44,7 +40,6 @@ def solution(expression):
                     continue
             else : 
                 stack.append(p)
-        print(stack[-1])
         mx = max(mx, abs(stack[-1]))
 
     return mx
