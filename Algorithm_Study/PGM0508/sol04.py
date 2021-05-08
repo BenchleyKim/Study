@@ -2,7 +2,10 @@ def solution(n, start, end, roads, traps):
     answer = 0
     graph = {i:{} for i in range(1,n+1)}
     for road in roads :
-        p, q, s =road 
+        p, q, s =road
+        if graph.get(p).get(q) :
+            if graph[p][q] < 0 :
+                 
         graph[p][q] = s
         graph[q][p] = -s
     print(graph)

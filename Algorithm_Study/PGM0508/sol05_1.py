@@ -41,6 +41,16 @@ def solution(k, num, links):
             mx  = check[node]
         heapq.heappush(heap, (-check[node], node))
     print(root)
+    stack = [root]
+    heap = []
+    visited = [0] * length
+    while stack :
+        node = stack.pop()
+        left, right =  links[node]
+        if left != -1 :
+            stack.append(left)
+            heapq.heappush(heap, (-(check[node]-check[left]),node))
+
     
     ww, root = heapq.heappop(heap)
     if k < 1 :

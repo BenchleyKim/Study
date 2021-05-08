@@ -36,7 +36,9 @@ def solution(k, num, links):
     mx =  0
     for node in range(length) :
         check[node] = search_node(node)
-
+        if check[node] > mx : 
+            root = node
+            mx  = check[node]
         heapq.heappush(heap, (-check[node], node))
     
     ww, root = heapq.heappop(heap)
