@@ -21,14 +21,8 @@ def solution(maps, p, r):
         for j in range(len(maps)) :
             count = 0
             mi , mj = i+r//2-0.5, j+r//2-0.5
-            # print()
-            # print(mi,mj)
-            # print()
             for ri in range(i, i+r) :
                 for rj in range(j,j+r) :
-                    # print(ri,rj,distance(mi, mj, ri, rj) )
-                    # ri += 0
-                    # rj += 0.5 
                     if distance(mi, mj, ri, rj) == (r//2) :
                         if board[ri][rj] <= p/2 :
                             count += 1
