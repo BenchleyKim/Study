@@ -1,5 +1,8 @@
+
+
 import sys
 from collections import deque
+
 sys.stdin = open(".\Algorithm_Study\BOJ0510\BOJ21740","r")
 input = sys.stdin.readline
 N = int(input())
