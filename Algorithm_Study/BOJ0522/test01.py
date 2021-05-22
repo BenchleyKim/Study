@@ -3,6 +3,7 @@
 arr = list(map(int,input().split()))
 mn  = 100
 mx = max(arr)
+1 1 2 3
 
 for i in range(mx) :
     s = 0

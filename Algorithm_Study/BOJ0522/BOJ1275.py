@@ -4,6 +4,13 @@ input = sys.stdin.readline
 
 N ,Q = map(int, input().split())
 arr = list(map(int, input().split()))
-segTree = []
+
+def init(node, start, end) :
+    if start == end :
+        tree[node[ = arr[start]
+    mid = (start + end ) // 2
+    init
+    
+
 for i in range(Q) :
     x ,y ,a,b  = map(int, input().split())
