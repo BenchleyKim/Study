@@ -26,6 +26,5 @@ while stack :
             if check[sub] == 0 :
                 next_stack.append(sub)
     stack = next_stack
-print(answer)
 for i in range(1,N+1) :
     print(answer[i], end=' ') 
