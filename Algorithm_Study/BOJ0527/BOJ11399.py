@@ -13,3 +13,7 @@ for i in arr :
     ans += p 
 print(ans)
 
+a = 1000000000
+b = 100_000_000_000
+
+print(a,b)
