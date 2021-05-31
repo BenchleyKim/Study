@@ -18,6 +18,6 @@ ans = 0
 for k in sorted(hashMap.keys()) :
     print(k)
     if hashMap.get(k-K) :
-        ans += min(hashMap[k], hashMap[k-K])
+        ans += hashMap[k]
 
 print(ans)
