@@ -6,3 +6,5 @@ WebdevStudy/Flasktorch/image.png
 .vscode/settings.json
 geckodriver.log
 WebdevStudy/Web_TdD/geckodriver.exe
+*.pyc
+*.sqlite3

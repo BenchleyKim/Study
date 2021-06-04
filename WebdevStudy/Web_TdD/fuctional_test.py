@@ -5,3 +5,6 @@ browser = webdriver.Chrome(executable_path="C:/Users/bottlechrome/Documents/GitH
 browser.get('http://localhost:8000')
 
 assert 'Django' in browser.title
+
+browser.quit()
+
