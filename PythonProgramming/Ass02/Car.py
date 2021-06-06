@@ -29,7 +29,9 @@ class Car :
         else :
             raise TypeError()
     def show_dash(self) :
-        print(self.mileage, self.fuel,self.get_range(), sum(self.fuel_economy_100)/len(self.fuel_economy_100), self.passenger)
+        print("=====================================")
+        print(f"1. 총 운행거리 : {self.mileage}km \n2. 현재 연료량 : {self.fuel:.2f}L/{self.max_fuel}L \n3. 현재 연료량으로 주행 가능한 거리 : {self.get_range():.2f}km \n4. 최근 100km 주행 간 연비 : {sum(self.fuel_economy_100)/len(self.fuel_economy_100):.2f}\n5. 현재 탑승 인원 및 무게 : {self.passenger+1}명")
+        print("=====================================")
     
     def fill_up(self) :
         self.fuel = self.max_fuel
@@ -81,25 +83,38 @@ class Sonata(Car) :
 class  Tucson(Car) :
     def __init__(self, state: str) -> None:
         super().__init__(60, 10, 5, state)
+        self.max_load = 500
+        self.load_state = 0
+    def load(self, x) :
+        self.load_state = min(self.max_load, self.load_state+x)
+        if self.load_state < 0 :
+            self.load_state = 0
+    def current_fuel_economy(self) :
+        return self.fuel_economy - self.fuel_economy * 0.1 * (self.passenger / self.max_passengers * 0.5 + self.load_state / self.max_load * 0.5)
+    def show_dash(self) :
+        print("=====================================")
+        print(f"1. 총 운행거리 : {self.mileage}km \n2. 현재 연료량 : {self.fuel:.2f}L/{self.max_fuel}L \n3. 현재 연료량으로 주행 가능한 거리 : {self.get_range():.2f}km \n4. 최근 100km 주행 간 연비 : {sum(self.fuel_economy_100)/len(self.fuel_economy_100):.2f}\n5. 현재 탑승 인원 및 무게 : {self.passenger+1}명, {self.load_state}kg")
+        print("=====================================")
 
 class Bongo(Car) :
     def __init__(self, state: str) -> None:
-        super().__init__(55, 11, 700 , state)
+        super().__init__(55, 11, 1 , state)
+        self.max_load = 700
+        self.load_state = 0
+    def load(self, x) :
+        self.load_state = min(self.max_load, self.load_state+x)
+        if self.load_state < 0 :
+            self.load_state = 0
+    def current_fuel_economy(self) :
+        return self.fuel_economy - self.fuel_economy * 0.1 * ( self.load_state / self.max_load)
+    def show_dash(self) :
+        print("=====================================")
+        print(f"1. 총 운행거리 : {self.mileage}km \n2. 현재 연료량 : {self.fuel:.2f}L/{self.max_fuel}L \n3. 현재 연료량으로 주행 가능한 거리 : {self.get_range():.2f}km \n4. 최근 100km 주행 간 연비 : {sum(self.fuel_economy_100)/len(self.fuel_economy_100):.2f}\n5. 현재 탑승 인원 및 무게 : {self.passenger+1}명, {self.load_state}kg")
+        print("=====================================")
+        
 
 class Tesla_S(Car) :
     def __init__(self, state: str) -> None:
         super().__init__(450, 1, 5, state)
 
 
-# sonata = Sonata("new")
-# sonata.ride(1)
-# sonata.move(50)
-# sonata.ride(2)
-# sonata.move(450)
-# sonata.show_dash()
-# sonata.fill(35)
-# sonata.move(140)
-# sonata.ride(-1)
-# sonata.move(100)
-# sonata.show_dash()
-    
