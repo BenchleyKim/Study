@@ -27,6 +27,6 @@ class HomePageTest(TestCase) :
         expected_html = render_to_string(
             'home.html',
             {'new_item_text' : "신규 작업 아이템"},
-            # request=request
+            request=request
         )
-        self.assertContains(response.content.decode(), expected_html)
+        self.assertEqual(response.content.decode(), expected_html)
