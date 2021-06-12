@@ -19,7 +19,7 @@ class HomePageTest(TestCase) :
     def test_home_page_can_save_a_POST_request(self):
         request = HttpRequest()
         request.method = 'POST'
-        request.POST['item_text'] = "신규 작업 아이템!"
+        request.POST['item_text'] = "신규 작업 아이템"
 
         response = home_page(request)
 
