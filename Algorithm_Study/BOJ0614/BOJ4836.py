@@ -25,7 +25,9 @@ def check( string ) :
                     continue
             if not rule1_flag :
                 str_list[i] = 'DIP'
-                break
+                continue
+    if 'DIP' in str_list :
+        rule1_flag = False
     if 'dip' not in str_list and 'DIP' not in str_list :
         rule1_flag = True
     
@@ -39,8 +41,6 @@ def check( string ) :
     if 'twirl' in str_list :
         if 'hop' in str_list :
             rule3_flag = True
-        else :
-            rule1_flag = False
     else :
         rule3_flag = True
     
