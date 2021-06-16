@@ -1,4 +1,6 @@
-import heapq
+import sys
+sys.stdin = open(".\Algorithm_Study\COTE0616\\test01","r")
+input = sys.stdin.readline
 
 def main():
     # 이곳에 소스코드를 작성하세요.
@@ -7,21 +9,25 @@ def main():
     T = int(input())
     for t in range(T) :
         N = int(input())
-        print(N)
         arr = list(map(int, input().split()))
         arr.sort()
-        print(arr)
         ans = 0 
         if len(arr) <= 2 :
             ans = max(arr)
         else :
             f ,s = arr.pop(0), arr.pop(0)
-            while len(arr) < 2 :
+            while len(arr) >= 2 :
                 left = arr.pop(0)
                 right = arr.pop(0)
                 ans += max(left,right)
                 ans += max(f,s)
-                ans += f
-                
-                
+                ans += f+s
+            if len(arr) > 0 :
+                last = arr.pop(0)
+                ans += min(f,s)
+                ans += last
+            else :
+                ans += max(f,s)
+
+        print(f"#{t+1} {ans}")
 main()
