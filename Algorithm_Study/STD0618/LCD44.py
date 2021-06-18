@@ -1,38 +1,24 @@
 from typing import List
 
 class Solution:
-    def isMatch(self, s: str, p: str) -> bool:
-        s_idx = 0 
-        p_idx = 0
-        result = False
-        while True :
-            if s_idx == len(s) and p_idx == len(p) :
-                return True
-            if p_idx == len(p) and s_idx < len(s) :
-                return False
-            if p[p_idx] == '?' :
-                p_idx += 1
-                s_idx += 1
-                continue
-            print(s_idx, p_idx)
-            if p[p_idx] == '*' :
-                if p_idx == len(p) - 1 :
-                    return True
-                else :
-                    if p[p_idx + 1] = "?" :
-                        p_idx += 1
-                    while p[p_idx+1] != s[s_idx] :
-                        s_idx += 1
-                        if s_idx >= len(s) :
-                            s_idx = len(s) - 1 
-                            break
-                    p_idx += 1
-                continue
-            if p[p_idx] == s[s_idx] :
-                p_idx += 1
-                s_idx += 1
-            else :
-                return False
+    
+    def isMatch(self, s, p):
+        length = len(s)
+        if len(p) - p.count('*') > length:
+            return False
+        dp = [True] + [False]*length
+        for i in p:
+            print(dp)
+            if i != '*':
+                for n in reversed(range(length)):
+                    dp[n+1] = dp[n] and (i == s[n] or i == '?')
+            else:
+                for n in range(1, length+1):
+                    dp[n] = dp[n-1] or dp[n]
+            dp[0] = dp[0] and i == '*'
+        return dp[-1]
+
+
 
 solutin = Solution()
 
