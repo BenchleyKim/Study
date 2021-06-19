@@ -17,11 +17,7 @@ for i in range(1, 16) :
     print(factorial(i))
 
 def fomula(n) :
-    return n**2 - 2 * n**(5/3) 
+    return (n**2) - (2 * (n**(5/3))) + 5* ( n **(4/3))
 
-is(n)=my(s=1, F=2, t); 
-while(n%F==0, t=round(n^(1/(s+1))-s/2); 
-    if(prod(i=0, s, t+i)==n, return(1)); 
-    s++; 
-    F*=s+1); 
-    0
+for i in range(1,10) :
+    print(fomula(i))
