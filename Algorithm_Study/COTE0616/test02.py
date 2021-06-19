@@ -11,26 +11,29 @@ def main():
         for i in range(6) :
             diff.append(int(left[i])-int(right[i]))
         return diff
+    # print(cal_diff([0,0,0,5,5,5],[0,0,0,1,5,9]))
 
-    def cal_entropy(diff) :
-        result = 0 
-        for d in diff :
-            result += abs(d)
-        return result 
+    def cal_entropy(diff,idx) :
+        # result = 0 
+        # for d in diff :
+        #     result += abs(d)
+        return abs(diff[idx])
+    # print(cal_entropy([0,0,0,-4,0,4]))
 
     def filter_available(base , filter, idx) :
         for i in range(len(filter)) :
             if filter[i] == '+' :
-                if diff[idx + i] == 9 :
+                if base[idx + i] == 9 :
                     return False 
                 continue
             if filter[i] == '-' :
-                if diff[idx + i] == 0 :
+                if base[idx + i] == 0 :
                     return False
                 continue
             if filter[i] =='0' :
                 continue
         return True
+    # print(filter_available([0,0,0,5,5,5],"+-",3))
 
     def cal_filter(base, filter, idx) :
         result = []
@@ -49,49 +52,82 @@ def main():
         for i in range(idx+len(filter),6 ) :
             result.append(base[i])
         return result
-
+    # print(cal_filter([0,0,0,5,5,5],"+-",3))
     T = int(input())
     for t in range(T) :
-        answer = 0 
-        A, B, L = map(int, input().rstrip().split())
-        farr = input().rstrip()
-        rarr = farr[L::-1]
+        A, B , L = map(int,input().split())
+        F = input().rstrip()
+        RF = F[::-1]
         
-        A = list(f"{A:06}")
-        A = list(map(int, A))
-        B = list(f"{B:06}")
-        B = list(map(int, B))
-        diff = cal_diff(A,B)
-        idx = 0
+        A = list(map(int, f"{A:06}"))
+        B = list(map(int, f"{B:06}"))
+        F = tuple(F)
+        # print(A, B, F)
+        answer = 0 
+        idx = 0 
         while True :
-            if idx >= 6- L + 1 :
+            if idx > 6 - L :
                 break
+            diff = cal_diff(A, B) 
             while diff[idx] != 0 :
-                e1 , e2 = 81, 81
-                if filter_available(A,farr, idx) :
-                    c1 = cal_filter(A,farr,idx)
-                    d1 = cal_diff(c1, B)
-                    e1 = cal_entropy(d1)
-                if filter_available(A,rarr,idx) :
-                    c2 = cal_filter(A,rarr,idx)
-                    d2 = cal_diff(c2,B)
-                    e2 = cal_entropy(d2)
-                if e1 == 81 and  e2 == 81 :
-                    answer = - 1
+                # print(A,B,diff)
+                cE = cal_entropy(diff,idx)
+                E1 = 10
+                E2 = 10
+                if filter_available(A,F,idx) :
+                    C1 = cal_filter(A,F,idx)
+                    D1 = cal_diff(C1,B)
+                    E1 = cal_entropy(D1,idx)
+                if filter_available(A,RF,idx) :
+                    C2 = cal_filter(A,RF,idx)
+                    D2 = cal_diff(C2,B)
+                    E2 = cal_entropy(D2,idx)
+                if E1 >= cE and E2 >= cE :
+                    idx = 6
+                    answer = -1
                     break
                 answer += 1
-                print(e1, e2)
-                print(diff)
-                if e1 < e2 :
-                    A = c1 
-                    diff = d1
+                if E1 < E2 :
+                    A = C1 
+                    diff = D1 
                 else :
-                    A = c2
-                    diff = d2
+                    A = C2 
+                    diff = D2
             idx += 1
+        idx = 5
+        while True :
+            if idx < L :
+                break
+            diff = cal_diff(A, B) 
+            while diff[idx] != 0 :
+                # print(A,B,diff)
+                cE = cal_entropy(diff,idx)
+                E1 = 10
+                E2 = 10
+                if filter_available(A,F,idx-L+1) :
+                    C1 = cal_filter(A,F,idx-L+1)
+                    D1 = cal_diff(C1,B)
+                    E1 = cal_entropy(D1,idx)
+                if filter_available(A,RF,idx-L+1) :
+                    C2 = cal_filter(A,RF,idx-L+1)
+                    D2 = cal_diff(C2,B)
+                    E2 = cal_entropy(D2,idx)
+                if E1 >= cE and E2 >= cE :
+                    idx = 0
+                    answer = -1
+                    break
+                answer += 1
+                if E1 < E2 :
+                    A = C1 
+                    diff = D1 
+                else :
+                    A = C2 
+                    diff = D2
+            idx -= 1
+        # print(diff)
         for d in diff :
-            if d != 0 : 
-                answer = - 1
+            if d != 0 :
+                answer = -1 
                 break
         print(f"#{t+1} {answer}")
     
