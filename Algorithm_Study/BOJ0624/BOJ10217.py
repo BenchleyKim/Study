@@ -12,24 +12,31 @@ for t in range(T) :
     for k in range(K) :
         u, v, c , d = map(int, input().split())
         if graph.get(u) :
-            graph[u][v] = [c,d]
+            if graph[u].get(v) :
+                graph[u][v].append([c,d])
+            else :
+                graph[u][v] = [[c,d]]
         else :
-            graph[u] = {v:[c,d]}
+            graph[u] = {v:[[c,d]]}
     heap = []
     # 거리, 비용, 공항 번호
     heapq.heappush(heap, (0,0,1))
     answer = -1
     while heap :
         dist, cost, num  = heapq.heappop(heap)
-        if cost > M :
-            continue
         if num  == N  : 
             answer = dist
             break
+        if not num in graph :
+            continue
         if dist < DP[num][cost]  :
             DP[num][cost] = dist 
             for sub in graph[num].keys() :
-                heapq.heappush(heap,(dist + graph[num][sub][1], cost + graph[num][sub][0], sub)) 
+                for path in graph[num][sub] :
+                    c, d = path
+                    if cost + c > M :
+                        continue
+                    heapq.heappush(heap,(dist + d, cost + c, sub)) 
 
     if answer < 0 :
         print("Poor KCM")
