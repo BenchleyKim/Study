@@ -4,11 +4,24 @@ input = sys.stdin.readline
 
 N = int(input())
 
-A , B , C, D = [[0] * N for i in range(4)]
+A , B , C, D = [[]for i in range(4)]
 for i in range(N) :
-    A[i], B[i] , C[i] ,D[i] = map(int, input().split())
+    a,b,c,d= map(int, input().split())
+    A.append(a) , B.append(b) , C.append(c) , D.append(d)
 
-print(A)
-print(B)
-print(C)
-print(D)
+left_dict = {}
+for i in range(N) :
+    for j in range(N) :
+        left_key = A[i] + B[j]
+        if left_key in left_dict :
+            left_dict[left_key] += 1
+        else :
+            left_dict[left_key] = 1
+answer = 0 
+
+for c in C :
+    for d in D :
+        if -(c+d) in left_dict :
+            answer += left_dict[-(c+d)]
+
+print(answer)
